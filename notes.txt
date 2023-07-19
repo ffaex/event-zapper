@@ -1,0 +1,4 @@
+chatgpt for nostr thing
+events which receive payment
+
+and empty e tag
