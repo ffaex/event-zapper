@@ -12,6 +12,7 @@ function SessionSetup() {
     const relays = useStore(state => state.relays);
     const QRCodeSize = useStore(state => state.QRCodeSize);
     const imgSize = useStore(state => state.imgSize);
+    const npubPrefix = useStore(state => state.npubPrefix);
 
     const setImgSize = useStore(state => state.setImgSize);
     const setNumOfSpeakers = useStore(state => state.setNumOfSpeakers);
@@ -72,7 +73,7 @@ function SessionSetup() {
       </label>
       <label>
         Npub prefix:
-        <input className="p-2 rounded" type="text" value={useStore.getState().npubPrefix} onChange={(e) => useStore.getState().setNpubPrefix(e.target.value)} />
+        <input className="p-2 rounded" type="text" value={npubPrefix} onChange={(e) => useStore.getState().setNpubPrefix(e.target.value)} />
       </label>
       <label className='flex items-center'>
         Image Size:

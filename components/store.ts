@@ -33,7 +33,7 @@ interface State {
 const useStore = create<State>(set => ({
   totalZaps: [0],
   imgSize: '10',
-  npubPrefix: 'iris.to/',
+  npubPrefix: 'nostr:',
   QRCodeSize: '33',
   SpeakerCards: [],
   numOfSpeakers: 1,
