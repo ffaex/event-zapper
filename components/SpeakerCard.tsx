@@ -20,7 +20,6 @@ function SpeakerCard({card} : {card: Card}) {
     
     // TODO make prettier with callback
     const handleNpub = (e: any) => {
-        console.log(`handleNpub: ${e.target.value}`)        
         setNpub(e.target.value)
     }
     const handleDonationNpub = (e: any) => {
@@ -34,9 +33,7 @@ function SpeakerCard({card} : {card: Card}) {
             decoded_npub = nip19.decode(npub);
         } catch (e) {
             setName(npub);
-            console.log(npub)
             modifySpeakerCard({npub, donationNpub, imageSrc, name: npub, id:card.id});
-            console.log('modified speaker card')
             return;
         }
         
@@ -47,7 +44,6 @@ function SpeakerCard({card} : {card: Card}) {
         }
         fetchEventFromRelays(filter, (event: Event<0>) => {
             const content = JSON.parse(event.content);
-            console.log(content)
             setImageSrc(content.picture)
             setName(content.name)
         })

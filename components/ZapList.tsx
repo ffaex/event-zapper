@@ -5,30 +5,31 @@ import ZapProps from "@/types/ZapProps";
 import ZapCard from "./ZapCard";
 import { useSubscribe } from 'nostr-hooks';
 import lightningPayReq from 'bolt11';
+import fetchEventFromRelays from '@/lib/nostr'
+import { Event, Filter } from 'nostr-tools'
+import { useDebounce } from 'use-debounce';
+import { insertEventIntoDescendingList } from "@/utils/insert";
 
 function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateAction<number>> }) {
   const eventStart = useStore((state) => state.sessionStart);
-  const relays = useStore((state) => state.relays);
 
   const [zaps, setZaps] = useState<ZapProps[]>([]);
+  const [immediateEvents, setImmediateEvents] = useState<Event[]>([]);
+  const [events] = useDebounce(immediateEvents, 1000);
 
-
-  const { events, eose, invalidate } = useSubscribe({
-    relays,
-    filters:[
+  useEffect(() => {
+    fetchEventFromRelays(
       {
         kinds: [9735],
         since: eventStart.getTime() / 1000,
         "#p": [npub],
-      }],
-      options: {
-        batchingInterval: 500,
-        invalidate: true, // testing
-        cacheRefresh: true,
+      },
+      (event: Event) => {
+        console.log('received event', event);
+        setImmediateEvents((prev) => insertEventIntoDescendingList([...prev], event));
       }
-  })
-
-
+    )
+  }, []);
 
   useEffect(() => {
     let zaps: ZapProps[] = [];
@@ -48,10 +49,10 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
       const senderPub = description.pubkey;
   
       const eTag = event.tags.find((tag) => tag[0] == 'e');
-      // if (eTag) {
-      //   console.log('e tag found');
-      //   return; // Skip this event and go to the next one
-      // }
+      if (eTag) {
+        console.log('e tag found');
+        return; // Skip this event and go to the next one
+      }
 
 
       // if e tag then its reaction to event, if no e tag then its a zap to person
@@ -63,7 +64,7 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
       //   return <></>
       // }
       zaps.push({amount: amount!, author: senderPub});
-    })
+    });
     setZaps(zaps);
   }, [events])
 
