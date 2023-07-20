@@ -6,7 +6,6 @@ import Card from '@/types/Card'
 import { QRCodeSVG } from 'qrcode.react'
 import { nip19 } from 'nostr-tools'
 function PresentationCard({speaker, setGlobal} : {speaker: Card, setGlobal: any}) {
-  console.log(speaker)
   const speakerColor = useStore(state => state.speakerColour)
   const [totalZaps, setTotalZaps] = useState(0);
   const imgSize = useStore(state => state.imgSize)
@@ -15,14 +14,13 @@ function PresentationCard({speaker, setGlobal} : {speaker: Card, setGlobal: any}
   try {
     decodedDonationNpub = nip19.decode(speaker.donationNpub).data.toString()
   } catch (error) {
-    console.log(error)
   }
 
   let decodedSpeakerNpub;
   try {
     decodedSpeakerNpub = nip19.decode(speaker.npub).data.toString()
   } catch (error) {
-    console.log(error)
+    console.log('cant decode speaker npub')
   }
 
   

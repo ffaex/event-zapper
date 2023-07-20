@@ -10,7 +10,6 @@ export default async function fetchEventFromRelays(filter: Filter, onEventReceiv
     const sub = pool.sub(relays, [filter]);
   
     sub.on('event', event => {
-      // this will only be called once the first time the event is received
       onEventReceived(event);
     });
   }
