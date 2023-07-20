@@ -18,10 +18,11 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
   const [events] = useDebounce(immediateEvents, 1000);
 
   useEffect(() => {
+    console.log(Math.floor(eventStart.getTime() / 1000));
     fetchEventFromRelays(
       {
         kinds: [9735],
-        since: eventStart.getTime() / 1000,
+        since: Math.floor(eventStart.getTime() / 1000),
         "#p": [npub],
       },
       (event: Event) => {

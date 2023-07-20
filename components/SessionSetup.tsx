@@ -8,7 +8,6 @@ function SessionSetup() {
     const bgColour = useStore(state => state.bgColour);
     const textColour = useStore(state => state.textColour);
     const speakerColour = useStore(state => state.speakerColour);
-    const sessionStart = useStore(state => state.sessionStart);
     const relays = useStore(state => state.relays);
     const QRCodeSize = useStore(state => state.QRCodeSize);
     const imgSize = useStore(state => state.imgSize);
@@ -19,7 +18,6 @@ function SessionSetup() {
     const setBgColour = useStore(state => state.setBgColour);
     const setTextColour = useStore(state => state.setTextColour);
     const setSpeakerColour = useStore(state => state.setSpeakerColour);
-    const setSessionStart = useStore(state => state.setSessionStart);
     const setSpeakerCards = useStore(state => state.setSpeakerCards)
     const setRelays = useStore(state => state.setRelays);
     const setQRCodeSize = useStore(state => state.setQRCodeSize);
@@ -52,16 +50,6 @@ function SessionSetup() {
       <label>
         Speaker Colour:
         <input className="p-2 rounded" type="color" value={speakerColour} onChange={(e) => setSpeakerColour(e.target.value)} />
-      </label>
-      <label>
-        Event Start:
-        <input 
-  className="p-2 rounded" 
-  type="datetime-local" 
-  value={sessionStart.toISOString().substring(0, 16)} 
-  onChange={(e) => setSessionStart(new Date(e.target.value))}
-/>
-
       </label>
       <label>
         Relays:
