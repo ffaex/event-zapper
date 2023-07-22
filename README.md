@@ -22,7 +22,7 @@ Click "Present" to open the Presentation screen - this will be what your event a
 
 A QR code for each speaker will be generated and displayed alongside the speaker's nostr profile picture and name.  
 
-Audience members can scan the QA code to open the speaker's nostr profile. Zaps sent to the speaker's nostr profile will be displayed on the screen in realtime!
+Audience members can scan the QR code to open the speaker's nostr profile. Zaps sent to the speaker's nostr profile will be displayed on the screen in realtime!
 
 ---
 
