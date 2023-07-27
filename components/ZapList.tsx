@@ -74,7 +74,7 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
   setter(totalZaps);
   return (
 
-    <div className="flex flex-col space-y-2 w-full px-2 py-4 overflow-y-auto">
+    <div className="flex flex-col space-y-2 w-full px-2 py-4 overflow-y-auto h-full">
       {zaps.map((zap: ZapProps, index) => {
         return <ZapCard key={index} zap={zap} />
       })}
