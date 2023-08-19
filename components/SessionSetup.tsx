@@ -68,6 +68,13 @@ function SessionSetup() {
         <input className="p-2 rounded" type="range" min={1} max={50} value={imgSize} onChange={(e) => setImgSize(e.target.value)} />
       </label>
     <PresentationBtn />
+    <label className='flex flex-col absolute left-2 bottom-2 max-w-[33%] items-center'>
+        <a href="https://github.com/ffaex/event-zapper#readme" target="_blank" rel="noopener noreferrer" >
+          <button>
+            💡 Help
+          </button>
+       </a>
+     </label>
     </div>
 
     
