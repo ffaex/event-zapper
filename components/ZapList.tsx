@@ -5,8 +5,7 @@ import ZapProps from "@/types/ZapProps";
 import ZapCard from "./ZapCard";
 import { useSubscribe } from 'nostr-hooks';
 import lightningPayReq from 'bolt11';
-import fetchEventFromRelays from '@/lib/nostr'
-import { Event, Filter } from 'nostr-tools'
+import { Event, Filter, SimplePool } from 'nostr-tools'
 import { useDebounce } from 'use-debounce';
 import { insertEventIntoDescendingList } from "@/utils/insert";
 
@@ -17,6 +16,27 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
   const [immediateEvents, setImmediateEvents] = useState<Event[]>([]);
   const [events] = useDebounce(immediateEvents, 1000);
 
+  function fetchEventFromRelays(filter: Filter, onEventReceived: CallableFunction) {
+    const pool = new SimplePool();
+
+    const relays = useStore.getState().relays;
+
+    const sub = pool.sub(relays, [filter]);
+  
+    sub.on('event', event => {
+      onEventReceived(event);
+    });
+
+    sub.on('count', count => {
+      console.log(`Relays: ${count}`);
+    }
+    );
+    return () => {
+      console.log('unsubscribing');
+      sub.unsub()
+    }
+  }
+
   useEffect(() => {
     console.log(Math.floor(eventStart.getTime() / 1000));
     fetchEventFromRelays(
@@ -26,7 +46,6 @@ function ZapList({ npub, setter }: { npub: string, setter: Dispatch<SetStateActi
         "#p": [npub],
       },
       (event: Event) => {
-        console.log('received event', event);
         setImmediateEvents((prev) => insertEventIntoDescendingList([...prev], event));
       }
     )

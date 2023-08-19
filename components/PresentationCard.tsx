@@ -43,8 +43,8 @@ function PresentationCard({speaker, setGlobal, globalAmount} : {speaker: Card, s
         
         <div className='flex items-center'>
           <div className='text-3xl text-fuchsia-600'>{totalZaps}</div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFF00" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFA500" className="w-10 h-10">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFF00" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FFA500" className="w-10 h-10">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
           </svg>
         </div>
         <img
@@ -59,8 +59,8 @@ function PresentationCard({speaker, setGlobal, globalAmount} : {speaker: Card, s
         {(decodedDonationNpub || decodedSpeakerNpub) && <ZapList npub={(speaker.donationNpub != '' ? decodedDonationNpub : decodedSpeakerNpub) as string} setter={setTotalZaps}/>}
           
           <div className={'flex justify-end text-2xl font-bold text-violet-600 w-full px-4 ' + (showBool ? '' : 'invisible')}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFF00" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFA500" className="w-10 h-10">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFF00" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FFA500" className="w-10 h-10">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
           </svg>
           {globalAmount} Sats Zapped
         </div>
