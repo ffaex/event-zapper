@@ -69,7 +69,7 @@ function SessionSetup() {
       </label>
     <PresentationBtn />
     <label className='flex flex-col absolute left-2 bottom-2 max-w-[33%] items-center'>
-        <a href="https://github.com/ffaex/event-zapper#readme" target="_blank" rel="noopener noreferrer" >
+        <a href="https://github.com/owen1917/event-zapper#readme" target="_blank" rel="noopener noreferrer" >
           <button>
             💡 Help
           </button>
