@@ -10,7 +10,7 @@ With Zappy Stage, event organizers can bridge the gap between audiences and spea
 
 ### Configuring your event
 
-Open the Session Setup screen (https://event-zapper.vercel.app). Specify the number of people that will be speaking at the event. 
+Open the Session Setup screen (https://event-zapper.lol). Specify the number of people that will be speaking at the event. 
 
 Paste each speaker's nostr public key (npub) in to the the npub field under "Speaker Setup". The speaker's profile picture and name will be automatically populated.
 
