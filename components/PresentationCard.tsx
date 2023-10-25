@@ -34,9 +34,8 @@ function PresentationCard({speaker, setGlobal, globalAmount} : {speaker: Card, s
   return (
     <div className='flex flex-col items-center space-y-2 rounded-2xl shadow-md max-h-full flex-1 relative'>
         {speaker.id == 1 &&  
-        <div className='flex flex-col absolute left-0 bottom-0 max-w-[33%] items-center'>
-          <QRCodeSVG className='max-w-full' value='https://nostr.how/en/zaps' />
-          <div className='font-bold text-xl'>How to Zap</div>
+        <div className='flex flex-col absolute left-0 bottom-0 items-center p-2 text-xl'>
+          <span>How to Zap? 👉 nostr.how/zaps</span>
         </div>
         }
     
