@@ -1,47 +1,47 @@
-import {create} from 'zustand';
 import Card from "@/types/Card";
+import { create } from "zustand";
 
 interface State {
-  totalZaps: number[],
-  npubPrefix: string,
-  relays: string[],
-  SpeakerCards: Card[],
-  numOfSpeakers: number,
-  bgColour: string,
-  textColour: string,
-  speakerColour: string,
-  sessionStart: Date,
-  QRCodeSize: string,
-  imgSize: string,
-  setTotalZaps: (zaps: number[]) => void,
-  setImgSize: (size: string) => void,
-  setNpubPrefix: (prefix: string) => void,
-  setQRCodeSize: (size: string) => void,
-  setRelays: (relays: string[]) => void,
-  setNumOfSpeakers: (num: number) => void,
-  setBgColour: (colour: string) => void,
-  setTextColour: (colour: string) => void,
-  setSpeakerColour: (colour: string) => void,
+  totalZaps: number[];
+  npubPrefix: string;
+  relays: string[];
+  SpeakerCards: Card[];
+  numOfSpeakers: number;
+  bgColour: string;
+  textColour: string;
+  speakerColour: string;
+  sessionStart: Date;
+  QRCodeSize: string;
+  imgSize: string;
+  setTotalZaps: (zaps: number[]) => void;
+  setImgSize: (size: string) => void;
+  setNpubPrefix: (prefix: string) => void;
+  setQRCodeSize: (size: string) => void;
+  setRelays: (relays: string[]) => void;
+  setNumOfSpeakers: (num: number) => void;
+  setBgColour: (colour: string) => void;
+  setTextColour: (colour: string) => void;
+  setSpeakerColour: (colour: string) => void;
   // addSpeakerCard: (card: Card) => void,
-  // removeSpeakerCard: (cardID: number) => void,
-  modifySpeakerCard: (card: Card) => void,
+  removeSpeakerCard: (cardID: number) => void;
+  modifySpeakerCard: (card: Card) => void;
   // clearSpeakerCards: () => void,
-  setSpeakerCards: (cards: number) => void,
-  setSessionStart: (date: Date) => void,
+  setSpeakerCards: (cards: Card) => void;
+  setSessionStart: (date: Date) => void;
   //setSpeakerCards: (cards: Card[]) => void,
 }
-const useStore = create<State>(set => ({
+const useStore = create<State>((set) => ({
   totalZaps: [0],
-  imgSize: '10',
-  npubPrefix: 'nostr:',
-  QRCodeSize: '33',
+  imgSize: "10",
+  npubPrefix: "nostr:",
+  QRCodeSize: "33",
   SpeakerCards: [],
   numOfSpeakers: 1,
-  bgColour: "#eeeeec",
-  textColour: "#000000",
-  speakerColour: "#000000",
-  relays: ['wss://relay.damus.io', 'wss://nos.lol'],
-  sessionStart : new Date(Date.now()),
+  bgColour: "#0a0a0a",
+  textColour: "#a855f7",
+  speakerColour: "#a855f7",
+  relays: ["wss://relay.damus.io", "wss://nos.lol"],
+  sessionStart: new Date(Date.now()),
   setTotalZaps: (zaps: number[]) => set(() => ({ totalZaps: zaps })),
   setImgSize: (size: string) => set(() => ({ imgSize: size })),
   setNpubPrefix: (prefix: string) => set(() => ({ npubPrefix: prefix })),
@@ -51,22 +51,32 @@ const useStore = create<State>(set => ({
   setBgColour: (colour: string) => set(() => ({ bgColour: colour })),
   setTextColour: (colour: string) => set(() => ({ textColour: colour })),
   setSpeakerColour: (colour: string) => set(() => ({ speakerColour: colour })),
-  modifySpeakerCard: (card: Card) => set((state:State) => ({ SpeakerCards: state.SpeakerCards.map((item) => item.id === card.id ? card : item) })),  // clearSpeakerCards: () => set(() => ({ SpeakerCards: [] })),
-  setSpeakerCards: (newCount) => set((state) => {
-    let newCards = [...state.SpeakerCards];
+  modifySpeakerCard: (card: Card) =>
+    set((state: State) => ({
+      SpeakerCards: state.SpeakerCards.map((item) =>
+        item.id === card.id ? card : item
+      ),
+    })), // clearSpeakerCards: () => set(() => ({ SpeakerCards: [] })),
+  setSpeakerCards: (newCard: Card) =>
+    set((state) => {
+      let newCards = [...state.SpeakerCards];
 
-    while (newCards.length < newCount) {
-      newCards.push({ id: newCards.length + 1, imageSrc: "/dummy.svg", donationNpub:'', npub:''});
-    }
+      newCards.push(newCard);
 
-    while (newCards.length > newCount) {
-      newCards.pop();
-    }
-
-    return { SpeakerCards: newCards };
-  }),
+      return { SpeakerCards: newCards };
+    }),
 
   setSessionStart: (date) => set(() => ({ sessionStart: date })),
+  removeSpeakerCard: (cardID: number) => {
+    // take existing speaker cards and remove the item that matches the cardID
+    set((state) => {
+      let cards = [...state.SpeakerCards];
+
+      cards = cards.filter((card) => card.id !== cardID);
+
+      return { SpeakerCards: cards };
+    });
+  },
   //setSpeakerCards: (cards) => set(() => ({ SpeakerCards: cards })),
 }));
 
